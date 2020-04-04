@@ -1,0 +1,50 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<h1>{{ titulo }}</h1>
+<table class="table table-striped table-responsive table-bordered">
+    <thead class="thead-default">
+    <tr>
+        <th>Processo</th>
+        <th>Tipo</th>
+        <th>Requerente</th>
+        <th>Cidade</th>
+        <th>Status</th>
+        <th>Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for autorizacao in autorizacoes %}
+    <tr>
+        <td>{{ autorizacao.numero_processo }}</td>
+        <td>{{ autorizacao.tipo_como_string }}</td>
+        <td>{{ autorizacao.perfil.nome }}</td>
+        <td>{{ autorizacao.endereco_do_bem.cidade }}</td>
+        <td>{{ autorizacao.status_do_pedido() }}</td>
+        <td>
+            <fieldset>
+                <form action="visualizar" method="get" >
+                    <input type="hidden" name="key_autorizacao" value="{{ autorizacao.key_autorizacao }}">
+                    <button name="baixar" type="button">Baixar formulário em PDF</button>
+                    <button formaction="informar_numero_processo" name="protocolar" type="submit"> Informar Protocolo</button>
+                    <button id="botao_visualizar" type="submit">Visualizar</button>
+                </form>
+            </fieldset>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div>
+    <p>Total de processos: {{ contagem }}</p>
+    <p>Aguardando protocolo: {{ aguardando }}</p>
+
+</div>
+<!--<script>-->
+
+<!--    function pedir_numero_processo() {-->
+<!--        var numero_processo = prompt("Por favor, informe o número do processo no SEI!")-->
+
+<!--    }-->
+
+<!--</script>-->
+{% endblock %}

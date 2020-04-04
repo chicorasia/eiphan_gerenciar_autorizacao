@@ -1,0 +1,112 @@
+{% extends "template.html" %}
+{% block conteudo %}
+  	<main>
+	  	<div class="container">
+			<h1>Processo n° {{ autorizacao.numero_processo }}</h1>
+	  		<table class="table">
+	  			<thead>
+	  				<th>Campo</th>
+	  				<th>Valor</th>
+	  			</thead>
+	  			<tbody>
+			  		<tr>
+			  			<td>Finalidade</td>
+			  			<td>{{ autorizacao.tipo_como_string }}</td>
+			  		</tr>
+					<tr>
+			  			<td>Data de envio</td>
+			  			<td>{{ autorizacao.data_envio }}</td>
+			  		</tr>
+			  		<tr>
+			  			<td>Data de protocolo</td>
+			  			<td>{{ autorizacao.data_protocolo }}</td>
+			  		</tr>
+			  		<tr>
+			  			<td>Data de resposta</td>
+			  			<td>{{ autorizacao.data_resposta }} </td>
+			  		</tr>
+			  		<tr>
+			  			<td>Status</td>
+			  			<td>{{ autorizacao.status_do_pedido() }}</td>
+			  		</tr>
+			  		<tr>
+			  			<td>Validade da autorização</td>
+			  			<td>{{ autorizacao.validade() }}</td>
+			  		</tr>
+			  		
+	  			</tbody>
+	  		</table>
+	  	</div>
+		<div class="container">
+			<form action="responder" method="get" >
+                    <input type="hidden" name="key_autorizacao" value="{{ autorizacao.key_autorizacao }}">
+                    <button class="btn-primary" name="responder" type="submit">Responder</button>
+<!--                    <button formaction="informar_numero_processo" name="protocolar" type="submit"> Informar Protocolo</button>-->
+<!--                    <button id="botao_visualizar" type="submit">Visualizar</button>-->
+			</form>
+		</div>
+	  	<div class="container">
+	  		<h2>Anexos</h2>
+	  			<table class="table">
+	  				<thead>
+	  					<th>Requerimento PDF</th>
+	  					<th>Documentos</th>
+	  					<th>Imagens</th>
+	  					<th>Projetos</th>
+	  				</thead>
+	  				<tbody>
+	  					<tr>
+	  						<td>link para o form em pdf</td>
+	  						<td>link documentos de identificação</td>
+	  						<td>link para fotos do imóvel</td>
+	  						<td>link para projetos anexados...</td>
+	  					</tr>
+	  					
+	  				</tbody>
+	  		</table>
+	  	</div>
+	   	<div class="container">
+	  		<h2>Informações para o parecer</h2>
+	  		<table class="table">
+	  			<thead>
+	  				<th>Campo</th>
+	  				<th>Valor</th>
+	  			</thead>
+	  			<tbody>
+	  				<tr>
+	  					<td>Nome do interessado</td>
+	  					<td>{{ autorizacao.perfil.nome }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Número do processo</td>
+	  					<td>{{ autorizacao.numero_processo }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Endereço do bem</td>
+	  					<td>{{ autorizacao.endereco_formatado }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Endereço do interessado</td>
+	  					<td>{{ autorizacao.perfil.endereco_formatado }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Telefone</td>
+	  					<td>{{ autorizacao.perfil.telefone }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Cidade / UF</td>
+	  					<td>{{ autorizacao.endereco_do_bem.cidade }} / {{ autorizacao.endereco_do_bem.estado }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Motivo solicitação</td>
+	  					<td>{{ autorizacao.tipo_como_string }}</td>
+	  				</tr>
+	  				<tr>
+	  					<td>Descrição da intervenção</td>
+	  					<td style="max-width: 200px">{{ autorizacao.descricao }}</td>
+	  				</tr>
+	  			</tbody>
+	  		</table>	
+	  	</div>
+  	</main>
+{% endblock %}
